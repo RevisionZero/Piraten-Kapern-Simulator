@@ -18,9 +18,9 @@ Jan-12,2023:
  
    -Yes, there aren't that many features specified and the ones that are specified lack heavy detail
    
-   -No, several key features and funnctions of the game are missing, such as rolling X number of dice(from 0-8)
+   -No, several key features and functions of the game are missing, such as rolling X number of dice(from 0-8)
    
-   -No, the features/functions and their descriptions are already simple ennough; further simplification would result in an inncomplete product
+   -No, the features/functions and their descriptions are already simple enough; further simplification would result in an incomplete product
    
    
  -Answered the specified questions
