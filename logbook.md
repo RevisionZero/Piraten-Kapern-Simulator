@@ -26,3 +26,10 @@ Jan-12,2023:
  -Answered the specified questions
  
  -Updated the DoD and the backlog to fit current business logic
+
+
+Jan-13,2023:
+
+-Added Player class
+-Added rolling 8 dice method
+-Updated Backlog accordingly
