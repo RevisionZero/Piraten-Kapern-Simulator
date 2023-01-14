@@ -23,7 +23,7 @@ Remark: **We are assuming here you are using a _real_ shell (e.g., anything but 
  * Status: 
    * Pending (P), Started (S), Blocked (B), Done (D)
  * Definition of Done (DoD):
-   * If the feature in question does exactly what it describes without any errors within the confines of the current business logic. For examples, the features need not work with cards or scorinng based on matching rolls.
+   * If the feature in question does exactly what it describes without any errors within the confines of the current business logic. For examples, the features need not work with cards or scorinng based on matching rolls at step #2.
 
 ### Backlog 
 
