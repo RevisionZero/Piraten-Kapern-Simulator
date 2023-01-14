@@ -39,3 +39,10 @@ Jan-13,2023:
 -Added play method
 
 -Updated backlog accordingly
+
+
+Jan-14,2023:
+
+-Implemented appropriate algorithm for play method
+
+-Created printRoll method
