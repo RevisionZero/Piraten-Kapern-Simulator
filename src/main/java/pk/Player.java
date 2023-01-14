@@ -1,7 +1,6 @@
 package pk;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.*;
 
 public class Player {
 
@@ -16,8 +15,111 @@ public class Player {
         return roll;
     }
 
+    private void printRoll(Faces[] roll){
+        String stringToPrint = "";
+        System.out.print("[");
+        for(int i = 0; i < 8; i++){
+            stringToPrint += roll[i] + ", ";
+        }
+        stringToPrint = stringToPrint.substring(0,stringToPrint.length()-2);
+        System.out.print(stringToPrint+"]\n");
+
+    }
+
     public void play(){
+
         int skulls = 0;
+        int score = 0;
+        int dag = 0; //dag = diamonds and gold
+        Faces[] roll = roll8();
+
+        do{
+            System.out.println("Your roll is: ");
+            printRoll(roll);
+
+            //Check how many skulls
+            for(int i = 0; i < 8; i++){
+                if(roll[i] == Faces.SKULL && roll[i] != null){
+                    skulls++;
+                    roll[i] = null;
+                }
+            }
+
+            //If skulls are > 3, end the turn
+            if(skulls >= 3){
+                System.out.println("You rolled 3 skulls, your turn is over!");
+                break;
+            }
+
+            //Keep n dice at random
+            Random rnd = new Random();
+            int unavailableDice = 0;
+            //int j = 7;
+            //Faces[] rollCopy = new Faces[8];
+
+
+            for(int i = 0; i < 8; i++){
+                if(roll[i] == null){
+                    unavailableDice++;
+                    //rollCopy[i] = null;
+                }
+                /*else{
+                    rollCopy[j] = roll[i];
+                    j--;
+                }*/
+            }
+
+            int diceToKeep = rnd.nextInt(6-unavailableDice);
+            int[] pickedIndices = new int[diceToKeep];
+
+            for(int i = 0; i < diceToKeep; i++){
+                int pick = rnd.nextInt(8);
+                if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || roll[pick] == null){
+                    i--;
+                }
+                else{
+                    pickedIndices[i] = pick;
+                }
+
+            }
+
+
+
+
+            //Check how many of n dice are diamond/gold and add score
+
+            System.out.println("The kept dice are: ");
+            for(int index:pickedIndices){
+                System.out.print(index+1+" ");
+                if(roll[index] == Faces.GOLD || roll[index] == Faces.DIAMOND){
+                    dag += 1;
+                    roll[index] = null;
+                }
+            }
+            System.out.println();
+
+            int turnPoints = 100*dag;
+
+            score += turnPoints;
+            dag = 0;
+
+
+            System.out.println("Points earned this roll: " +turnPoints);
+
+            //Re-roll without skulls and kept dice
+
+            for(int i = 0; i < 8; i++){
+                if(roll[i] != null){
+                    roll[i] = playerDice[i].roll();
+                }
+            }
+        } while(true);
+
+        System.out.println("Score: "+score);
+
+
+
+        /*int skulls = 0;
         int score = 0;
         int dag = 0; //dag = diamonds and gold
         Faces[] roll = roll8();
@@ -59,6 +161,9 @@ public class Player {
                     if(available[i]){
                         selections[j] = i;
                         j++;
+                        if(j == selections.length){
+                            break;
+                        }
                     }
                 }
 
@@ -80,24 +185,28 @@ public class Player {
                     }
                 }
 
-                score = dag*100;
+                score += dag*100;
 
+            }
+
+            for(int i = 0; i < 8; i++){
+                if(playerDice[i] != null){
+                    playerDice[i].roll();
+                }
             }
 
             //dag = (roll[i] == Faces.DIAMOND | roll[i] == Faces.GOLD) ? dag+1 : dag;
 
 
         }
-        while (true);
+        while (true);*/
+
 
     }
 
     public static void main(String[] args) {
         Player pl = new Player();
-        for(int i = 0; i < 8; i++){
-            System.out.println(pl.roll8()[i]);
-        }
-        pl.play();
+        System.out.println(pl.roll8()[7]);
     }
 
 
