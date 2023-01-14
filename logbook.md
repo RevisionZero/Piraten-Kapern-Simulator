@@ -31,5 +31,11 @@ Jan-12,2023:
 Jan-13,2023:
 
 -Added Player class
+
 -Added rolling 8 dice method
+
 -Updated Backlog accordingly
+
+-Added play method
+
+-Updated backlog accordingly
