@@ -66,12 +66,8 @@ public class Player {
             for(int i = 0; i < 8; i++){
                 if(roll[i] == null){
                     unavailableDice++;
-                    //rollCopy[i] = null;
                 }
-                /*else{
-                    rollCopy[j] = roll[i];
-                    j--;
-                }*/
+
             }
             int diceToKeep = 0;
 
