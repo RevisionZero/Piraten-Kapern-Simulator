@@ -16,11 +16,11 @@ Jan-12,2023:
   
  -Answers:
  
-   -Yes, there aren't that many features specified and the ones that are specified lack heavy detail
+   -Yes, in the sense that it tries to describe only the essential features and not any fancy additions
    
-   -No, several key features and functions of the game are missing, such as rolling X number of dice(from 0-8)
+   -No, this description takes away the player's ability to decide which dice to keep, which is one of the most important aspects of the game, and it takes away the player's ability to decide whether to re-roll or not, which is another critical feature. Additionally, there are other important missing features, such as cards. In short, this description is an automated re-rolling of the dice until the player is out.
    
-   -No, the features/functions and their descriptions are already simple enough; further simplification would result in an incomplete product
+   -No, the features/functions and their descriptions are already simple enough; further simplification would result in even the most basic of features not resembling how they work in the real world
    
    
  -Answered the specified questions
