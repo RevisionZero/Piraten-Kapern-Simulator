@@ -31,7 +31,7 @@ public class Player {
 
     }
 
-    public void play(){
+    public int play(){
 
         int skulls = 0;
         int score = 0;
@@ -52,7 +52,7 @@ public class Player {
 
             //If skulls are > 3, end the turn
             if(skulls >= 3){
-                System.out.println("You rolled 3 skulls, your turn is over!");
+                System.out.println("You rolled 3 skulls, you're out!");
                 break;
             }
 
@@ -108,13 +108,6 @@ public class Player {
             }
             System.out.println();
 
-            int turnPoints = 100*dag;
-
-            score += turnPoints;
-            dag = 0;
-
-
-            System.out.println("Points earned this roll: " +turnPoints);
 
             //Re-roll without skulls and kept dice
 
@@ -125,91 +118,11 @@ public class Player {
             }
         } while(true);
 
+        score = 100*dag;
+
         System.out.println("Score: "+score);
 
-
-
-        /*int skulls = 0;
-        int score = 0;
-        int dag = 0; //dag = diamonds and gold
-        Faces[] roll = roll8();
-        boolean[] available = new boolean[8];
-        int unavailabledice = 0;
-
-        do{
-            for(int i = 0; i < 8; i++){
-                if(playerDice[i] != null){
-                    if(roll[i] == Faces.SKULL){
-                        skulls += 1;
-                        playerDice[i] = null;
-                        available[i] = false;
-                    }
-                    else{
-                        available[i] = true;
-                    }
-                }
-            }
-            if(skulls > 3){
-                break;
-            }
-
-            for(boolean bool: available){
-                if(!bool){
-                    unavailabledice += 1;
-                }
-            }
-
-            Random rnd = new Random();
-
-            if(8-unavailabledice-2>2){
-                Integer[] selections = new Integer[8-unavailabledice-2];
-
-                int numKeptDice = rnd.nextInt(1,8-unavailabledice-2);
-
-                int j = 0;
-                for(int i = 0; i < 8; i++){
-                    if(available[i]){
-                        selections[j] = i;
-                        j++;
-                        if(j == selections.length){
-                            break;
-                        }
-                    }
-                }
-
-                int[] keptDice = new int[numKeptDice];
-                for(int i = 0; i < numKeptDice; i++){
-                    int rndIndex = rnd.nextInt(selections.length);
-                    if(selections[rndIndex] != null){
-                        keptDice[i] = selections[rndIndex];
-                        selections[rndIndex] = null;
-                    }
-                    else{
-                        i--;
-                    }
-                }
-
-                for(int i = 0; i < keptDice.length; i++){
-                    if( (roll[keptDice[i]] == Faces.GOLD) || (roll[keptDice[i]] == Faces.DIAMOND) ){
-                        dag++;
-                    }
-                }
-
-                score += dag*100;
-
-            }
-
-            for(int i = 0; i < 8; i++){
-                if(playerDice[i] != null){
-                    playerDice[i].roll();
-                }
-            }
-
-            //dag = (roll[i] == Faces.DIAMOND | roll[i] == Faces.GOLD) ? dag+1 : dag;
-
-
-        }
-        while (true);*/
+        return score;
 
 
     }
