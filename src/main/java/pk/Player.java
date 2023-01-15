@@ -19,7 +19,12 @@ public class Player {
         String stringToPrint = "";
         System.out.print("[");
         for(int i = 0; i < 8; i++){
-            stringToPrint += roll[i] + ", ";
+            if(roll[i] == null){
+                stringToPrint += "Unavailable, ";
+            }
+            else{
+                stringToPrint += roll[i] + ", ";
+            }
         }
         stringToPrint = stringToPrint.substring(0,stringToPrint.length()-2);
         System.out.print(stringToPrint+"]\n");
@@ -68,8 +73,13 @@ public class Player {
                     j--;
                 }*/
             }
+            int diceToKeep = 0;
 
-            int diceToKeep = rnd.nextInt(6-unavailableDice);
+            if(unavailableDice < 6){
+                diceToKeep = rnd.nextInt(6-unavailableDice);
+            }
+
+
             int[] pickedIndices = new int[diceToKeep];
 
             for(int i = 0; i < diceToKeep; i++){
@@ -93,8 +103,8 @@ public class Player {
                 System.out.print(index+1+" ");
                 if(roll[index] == Faces.GOLD || roll[index] == Faces.DIAMOND){
                     dag += 1;
-                    roll[index] = null;
                 }
+                roll[index] = null;
             }
             System.out.println();
 
@@ -204,10 +214,6 @@ public class Player {
 
     }
 
-    public static void main(String[] args) {
-        Player pl = new Player();
-        System.out.println(pl.roll8()[7]);
-    }
 
 
 }
