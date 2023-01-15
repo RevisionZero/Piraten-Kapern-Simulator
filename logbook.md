@@ -58,3 +58,14 @@ Jan-15,2023:
 -Changed backlog
 
 -Updated logbook accordingly
+
+-Delivered features F07 and F03v2
+
+-Questions:
+  a. Which part of your code do you consider to be technical debt?
+  b. Do you think your features were the right size? Too big? Too small?
+  c. Is it worth tracking the realization of each feature in the backlog? As a tag in the VCS?
+  d. Does it make sense to sacrifice quality in the long run? For short-term?
+  
+  Answers:
+    a.
