@@ -46,3 +46,15 @@ Jan-14,2023:
 -Implemented appropriate algorithm for play method
 
 -Created printRoll method
+
+-Updated logbook accordingly
+
+Jan-15,2023:
+
+-Fixed faulty play method logic
+
+-Updated printRoll method
+
+-Changed backlog
+
+-Updated logbook accordingly
