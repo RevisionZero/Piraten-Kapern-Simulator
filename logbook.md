@@ -69,3 +69,15 @@ Jan-15,2023:
   
   Answers:
     a.
+
+Jan-16,2023:
+
+-Fixed faulty Play method logic
+
+-Introduced GameSimulation class
+
+-Formatted stdout to look better
+
+Jan-17,2023
+
+-Updated logbook for jan-16

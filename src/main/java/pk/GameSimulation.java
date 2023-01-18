@@ -27,14 +27,14 @@ public class GameSimulation {
 
             if(player1.totalScore>player2.totalScore){
                 player1.wins++;
-                System.out.println("Player 1 wins! Press Enter to continue simulation");
+                System.out.println("Player 1 wins!");
                 System.out.println("Player 1 wins: "+ player1.wins);
                 System.out.println("Player 2 wins: "+ player2.wins);
                 //scanner.nextLine();
             }
             else {
                 player2.wins++;
-                System.out.println("Player 2 wins! Press Enter to continue simulation");
+                System.out.println("Player 2 wins!");
                 System.out.println("Player 1 wins: "+ player1.wins);
                 System.out.println("Player 2 wins: "+ player2.wins);
                 //scanner.nextLine();
