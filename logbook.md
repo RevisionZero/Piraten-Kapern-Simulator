@@ -81,3 +81,15 @@ Jan-16,2023:
 Jan-17,2023
 
 -Updated logbook for jan-16
+
+Jan-18,2023:
+
+-Created score class
+
+-Adjusted player, score, and GameSimulation classes logic
+
+Jan-19,2023:
+
+-Further adjusted logic of classes worked on during jan18
+
+-Updated logbook

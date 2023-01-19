@@ -25,8 +25,6 @@ public class GameSimulation {
 
     private static void printWinPercentages(float numOfGames,Player... players){
         for(int i = 0; i < players.length; i++){
-            //float percentage = ((players[i].wins)/2f) * 100;
-
             System.out.printf(players[i].name+"'s win percentage: %.2f", (((players[i].wins)/numOfGames) * 100));
             System.out.print("%\n");
         }
