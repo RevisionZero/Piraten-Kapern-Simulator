@@ -4,29 +4,23 @@ import java.util.*;
 
 public class Player {
 
-    public Player(boolean redOrNot){
+    public Player(boolean redOrNot, String playerName){
         red = redOrNot;
+        name = playerName;
     }
 
     private boolean red;
+
+    public String name;
 
     Dice[] playerDice = {new Dice(), new Dice(), new Dice(),new Dice(),new Dice(),new Dice(),new Dice(),new Dice()};
     Faces[] roll = new Faces[8];
 
     public int totalScore = 0;
 
-    private int skulls = 0;
+    public int skulls = 0;
 
     public int wins = 0;
-
-    public Faces[] roll8(){
-        Faces[] roll = new Faces[8];
-
-        for(int i = 0; i < 8; i++){
-            roll[i] = playerDice[i].roll();
-        }
-        return roll;
-    }
 
     private void printRoll(Faces[] roll, boolean red){
         if(red){
@@ -50,53 +44,67 @@ public class Player {
 
     }
 
+    private void reRoll(int[] pickedIndices){
+        System.out.println("\nRe-rolling...");
+
+        for(int i = 0; i < 8; i++){
+            int current = i;
+            if(!Arrays.stream(pickedIndices).anyMatch(n->(n==current)) && roll[i] != null){
+                roll[i] = playerDice[i].roll();
+            }
+        }
+    }
+
+    private void turnScore(int dag){
+        if(skulls < 3){
+            totalScore += 100*dag;
+        }
+        else{
+            roll = Dice.roll8(playerDice);
+            skulls = 0;
+        }
+    }
     public void play(boolean firstRoll){
 
-
         int dag = 0; //dag = diamonds and gold
+
         boolean reRoll;
+
         if(firstRoll){
-            this.roll = roll8();
+            roll = Dice.roll8(playerDice);
         }
         else{
             for(int i = 0; i < 8; i++){
-                if(this.roll[i] != null){
-                    this.roll[i] = playerDice[i].roll();
+                if(roll[i] != null){
+                    roll[i] = playerDice[i].roll();
                 }
             }
         }
 
         do{
+            dag = 0;
+
             System.out.println("Your roll is: ");
             printRoll(roll,red);
 
             //Check how many skulls
             for(int i = 0; i < 8; i++){
                 if(roll[i] == Faces.SKULL && roll[i] != null){
-                    this.skulls++;
+                    skulls++;
                     roll[i] = null;
                 }
             }
 
             //If skulls are > 3, end the turn
-            if(this.skulls >= 3){
+            if(skulls >= 3){
                 System.out.println("You rolled 3 skulls, your turn is over!");
                 break;
             }
 
             //Keep n dice at random
             Random rnd = new Random();
-            //int j = 7;
-            //Faces[] rollCopy = new Faces[8];
 
-
-
-            int diceToKeep = rnd.nextInt(6-this.skulls);
-
-            /*if(skulls < 6){
-                diceToKeep = rnd.nextInt(6-skulls);
-            }*/
-
+            int diceToKeep = rnd.nextInt(6-skulls);
 
             int[] pickedIndices = new int[diceToKeep];
             Arrays.fill(pickedIndices, 9);
@@ -112,12 +120,15 @@ public class Player {
 
             }
 
-
-
-
             //Check how many of n dice are diamond/gold and add score
 
-            System.out.println("The kept dice are: ");
+            if(diceToKeep != 0){
+                System.out.println("The kept dice are: ");
+            }
+            else {
+                System.out.println("No kept dice");
+            }
+
             for(int index:pickedIndices){
                 System.out.print(index+1+" ");
                 if(roll[index] == Faces.GOLD || roll[index] == Faces.DIAMOND){
@@ -126,44 +137,17 @@ public class Player {
             }
             System.out.println();
 
-
             //Re-roll without skulls and kept dice
 
             reRoll = rnd.nextBoolean();
 
             if(reRoll){
-
-                System.out.println("\nRe-rolling...");
-
-                int reRollSize = rnd.nextInt(2,8-this.skulls);
-                int[] reRollIndices = new int[reRollSize];
-                Arrays.fill(reRollIndices,9);
-
-                for(int i = 0; i < reRollSize; i++){
-                    int pick = rnd.nextInt(8);
-                    if(Arrays.stream(reRollIndices).anyMatch(n->(n==pick)) || roll[pick] == null){
-                        i--;
-                    }
-                    else{
-                        reRollIndices[i] = pick;
-                        this.roll[pick] = playerDice[pick].roll();
-                    }
-
-                }
-
-
-
+                reRoll(pickedIndices);
             }
 
         } while(reRoll);
 
-        if(this.skulls < 3){
-            totalScore += 100*dag;
-        }
-        else{
-            this.roll = roll8();
-            this.skulls = 0;
-        }
+        turnScore(dag);
 
         System.out.println("Score: "+ totalScore +"\n");
 

@@ -1,57 +1,134 @@
 package pk;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class GameSimulation {
 
-    public void simulation(Player player1, Player player2, int numberOfGames){
+
+
+    private static void turn(Player player, String text, boolean firstTurn){
+        System.out.println(player.name+text);
+        player.play(firstTurn);
+    }
+
+    private static void finalTurns(Score scorer,Player... players){
+        System.out.println(players[scorer.initialWinner].name+" has reached 6000 points, the final turns begin!");
+        for(int i = 0; i < players.length; i++){
+            if(i != scorer.initialWinner){
+                turn(players[i],"'s final turn:",false);
+                scorer.finalRoundScores.add(players[i].totalScore);
+            }
+        }
+        scorer.getFinalRoundMax();
+    }
+
+    private static void printWinPercentages(float numOfGames,Player... players){
+        for(int i = 0; i < players.length; i++){
+            //float percentage = ((players[i].wins)/2f) * 100;
+
+            System.out.printf(players[i].name+"'s win percentage: %.2f", (((players[i].wins)/numOfGames) * 100));
+            System.out.print("%\n");
+        }
+    }
+
+    public static void resetSkulls(Player... players){
+        Arrays.stream(players).forEach(player -> {
+            player.skulls = 0;
+        });
+    }
+
+    public void simulation(int numberOfGames,Player... players){
 
         for(int i = 0; i < numberOfGames; i++){
 
-            player1.totalScore = 0;
-            player2.totalScore = 0;
+            int winner = 6;
+
+            Score scorer = new Score(players);
 
             System.out.println("------------------------------------Game " + (i+1) + "------------------------------------");
 
-            System.out.println("Player 1's first turn:");
-            player1.play(true);
+            scorer.resetScore(players);
 
-            System.out.println("Player 2's first turn:");
-            player2.play(true);
+            resetSkulls(players);
 
-            while (player1.totalScore < 6000 && player2.totalScore < 6000){
-                System.out.println("Player 1's turn");
-                player1.play(false);
-                System.out.println("Player 2's turn");
-                player2.play(false);
+            Arrays.stream(players).forEach(player -> {
+                turn(player,"'s first turn:", true);
+            });
+
+            scorer.addAllScores();
+
+            boolean keepPlaying = true;
+
+            do{
+                for(int j = 0; j < players.length; j++){
+
+                    turn(players[j],"'s turn:",false);
+
+                    if(players[j].totalScore>=6000){
+                        scorer.initialWinner = j;
+                        keepPlaying = false;
+                        break;
+                    }
+
+                }
+
             }
+            while (keepPlaying);
 
+            finalTurns(scorer,players);
 
-            if(player1.totalScore>player2.totalScore){
-                player1.wins++;
-                System.out.println("Player 1 wins!");
-                System.out.println("Player 1 wins: "+ player1.wins);
-                System.out.println("Player 2 wins: "+ player2.wins);
-                //scanner.nextLine();
+            if(scorer.finalRoundWinner != -1){
+                if(players[scorer.finalRoundWinner].totalScore < players[scorer.initialWinner].totalScore){
+                    winner = scorer.initialWinner;
+
+                    players[winner].wins++;
+
+                    System.out.println(players[winner].name+" wins!");
+                    Arrays.stream(players).forEach(player -> {
+                        System.out.println(player.name+"'s score: "+player.totalScore);
+                    });
+
+                }
+                else if(players[scorer.finalRoundWinner].totalScore == players[scorer.initialWinner].totalScore){
+                    i--;
+
+                    System.out.println("TIE! Replaying the game...");
+                }
+                else {
+                    winner = scorer.finalRoundWinner;
+
+                    players[winner].wins++;
+
+                    System.out.println(players[winner].name+" wins!");
+                    Arrays.stream(players).forEach(player -> {
+                        System.out.println(player.name+"'s score: "+player.totalScore);
+                    });
+
+                }
             }
             else {
-                player2.wins++;
-                System.out.println("Player 2 wins!");
-                System.out.println("Player 1 wins: "+ player1.wins);
-                System.out.println("Player 2 wins: "+ player2.wins);
-                //scanner.nextLine();
-            }
+                if(scorer.finalRoundMaxScore < players[scorer.initialWinner].totalScore){
+                    winner = scorer.initialWinner;
 
+                    players[winner].wins++;
+
+                    System.out.println(players[winner].name+" wins!");
+                    Arrays.stream(players).forEach(player -> {
+                        System.out.println(player.name+"'s score: "+player.totalScore);
+                    });
+
+                }
+                else{
+                    i--;
+
+                    System.out.println("TIE! Replaying the game...");
+                }
+            }
 
         }
 
-        float player1Percentage = ((player1.wins)/42f) * 100;
-        float player2Percentage = ((player2.wins)/42f) * 100;
-
-
-
         System.out.println("Simulation is over. GG!");
-        System.out.printf("Player 1's win percentage: %.2f", player1Percentage);
-        System.out.print("%\n");
-        System.out.printf("Player 2's win percentage: %.2f", player2Percentage);
-        System.out.print("%\n");
+        printWinPercentages(numberOfGames,players);
     }
 }
