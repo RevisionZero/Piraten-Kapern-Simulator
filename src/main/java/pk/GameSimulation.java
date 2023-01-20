@@ -7,16 +7,16 @@ public class GameSimulation {
 
 
 
-    private static void turn(Player player, String text, boolean firstTurn){
+    private static void turn(Player player, String text){
         System.out.println(player.name+text);
-        player.play(firstTurn);
+        player.play();
     }
 
     private static void finalTurns(Score scorer,Player... players){
         System.out.println(players[scorer.initialWinner].name+" has reached 6000 points, the final turns begin!");
         for(int i = 0; i < players.length; i++){
             if(i != scorer.initialWinner){
-                turn(players[i],"'s final turn:",false);
+                turn(players[i],"'s final turn:");
                 scorer.finalRoundScores.add(players[i].totalScore);
             }
         }
@@ -51,7 +51,7 @@ public class GameSimulation {
             resetSkulls(players);
 
             Arrays.stream(players).forEach(player -> {
-                turn(player,"'s first turn:", true);
+                turn(player,"'s first turn:");
             });
 
             scorer.addAllScores();
@@ -61,7 +61,7 @@ public class GameSimulation {
             do{
                 for(int j = 0; j < players.length; j++){
 
-                    turn(players[j],"'s turn:",false);
+                    turn(players[j],"'s turn:");
 
                     if(players[j].totalScore>=6000){
                         scorer.initialWinner = j;

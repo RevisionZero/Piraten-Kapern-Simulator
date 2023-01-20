@@ -13,6 +13,7 @@ public class PiratenKarpen {
         Player player1 = new Player(true,"Player 1");
         Player player2 = new Player(false, "Player 2");
 
+
         GameSimulation simulator = new GameSimulation();
         simulator.simulation(42,player1,player2);
 

@@ -45,13 +45,10 @@ public class Player {
     }
 
     private void reRoll(int[] pickedIndices){
-        System.out.println("\nRe-rolling...");
+        System.out.print("\nRe-rolling the dice: ");
 
-        for(int i = 0; i < 8; i++){
-            int current = i;
-            if(!Arrays.stream(pickedIndices).anyMatch(n->(n==current)) && roll[i] != null){
-                roll[i] = playerDice[i].roll();
-            }
+        for (int index: pickedIndices){
+            roll[index] = playerDice[index].roll();
         }
     }
 
@@ -61,25 +58,16 @@ public class Player {
         }
         else{
             roll = Dice.roll8(playerDice);
-            skulls = 0;
         }
+        skulls = 0;
     }
-    public void play(boolean firstRoll){
+    public void play(){
 
         int dag = 0; //dag = diamonds and gold
 
         boolean reRoll;
 
-        if(firstRoll){
-            roll = Dice.roll8(playerDice);
-        }
-        else{
-            for(int i = 0; i < 8; i++){
-                if(roll[i] != null){
-                    roll[i] = playerDice[i].roll();
-                }
-            }
-        }
+        roll = Dice.roll8(playerDice);
 
         do{
             dag = 0;
@@ -104,12 +92,12 @@ public class Player {
             //Keep n dice at random
             Random rnd = new Random();
 
-            int diceToKeep = rnd.nextInt(6-skulls);
+            int diceToRoll = rnd.nextInt(2,9-skulls);
 
-            int[] pickedIndices = new int[diceToKeep];
+            int[] pickedIndices = new int[diceToRoll];
             Arrays.fill(pickedIndices, 9);
 
-            for(int i = 0; i < diceToKeep; i++){
+            for(int i = 0; i < diceToRoll; i++){
                 int pick = rnd.nextInt(8);
                 if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || roll[pick] == null){
                     i--;
@@ -122,16 +110,9 @@ public class Player {
 
             //Check how many of n dice are diamond/gold and add score
 
-            if(diceToKeep != 0){
-                System.out.println("The kept dice are: ");
-            }
-            else {
-                System.out.println("No kept dice");
-            }
 
-            for(int index:pickedIndices){
-                System.out.print(index+1+" ");
-                if(roll[index] == Faces.GOLD || roll[index] == Faces.DIAMOND){
+            for(int i  = 0; i < 8; i++){
+                if(roll[i] == Faces.GOLD || roll[i] == Faces.DIAMOND){
                     dag += 1;
                 }
             }
@@ -149,7 +130,7 @@ public class Player {
 
         turnScore(dag);
 
-        System.out.println("Score: "+ totalScore +"\n");
+        System.out.println("Turn ended. Score: "+ totalScore +"\n");
 
 
     }
