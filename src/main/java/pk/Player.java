@@ -38,9 +38,8 @@ public class Player {
         }
         skulls = 0;
     }
-    public void play(){
 
-        Logger logger = Logger.getLogger("Logger");
+    public void play(){
 
         int dag = 0; //dag = diamonds and gold
 
