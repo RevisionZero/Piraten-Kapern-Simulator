@@ -30,9 +30,18 @@ public class GameSimulation {
         }
     }
 
-    public static void resetSkulls(Player... players){
+    private static void resetSkulls(Player... players){
         Arrays.stream(players).forEach(player -> {
             player.skulls = 0;
+        });
+    }
+
+    private static void win(int winner, Player... players){
+        players[winner].wins++;
+
+        System.out.println(players[winner].name+" wins!");
+        Arrays.stream(players).forEach(player -> {
+            System.out.println(player.name+"'s score: "+player.totalScore);
         });
     }
 
@@ -80,12 +89,7 @@ public class GameSimulation {
                 if(players[scorer.finalRoundWinner].totalScore < players[scorer.initialWinner].totalScore){
                     winner = scorer.initialWinner;
 
-                    players[winner].wins++;
-
-                    System.out.println(players[winner].name+" wins!");
-                    Arrays.stream(players).forEach(player -> {
-                        System.out.println(player.name+"'s score: "+player.totalScore);
-                    });
+                    win(winner,players);
 
                 }
                 else if(players[scorer.finalRoundWinner].totalScore == players[scorer.initialWinner].totalScore){
@@ -96,12 +100,7 @@ public class GameSimulation {
                 else {
                     winner = scorer.finalRoundWinner;
 
-                    players[winner].wins++;
-
-                    System.out.println(players[winner].name+" wins!");
-                    Arrays.stream(players).forEach(player -> {
-                        System.out.println(player.name+"'s score: "+player.totalScore);
-                    });
+                    win(winner,players);
 
                 }
             }
@@ -109,12 +108,7 @@ public class GameSimulation {
                 if(scorer.finalRoundMaxScore < players[scorer.initialWinner].totalScore){
                     winner = scorer.initialWinner;
 
-                    players[winner].wins++;
-
-                    System.out.println(players[winner].name+" wins!");
-                    Arrays.stream(players).forEach(player -> {
-                        System.out.println(player.name+"'s score: "+player.totalScore);
-                    });
+                    win(winner,players);
 
                 }
                 else{

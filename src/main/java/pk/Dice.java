@@ -19,4 +19,20 @@ public class Dice {
         return roll;
     }
 
+    public static void printRoll(Faces[] roll){
+        System.out.print("[");
+        String stringToPrint = "";
+        for(int i = 0; i < 8; i++){
+            if(roll[i] == null){
+                stringToPrint += "SKULL, ";
+            }
+            else{
+                stringToPrint += roll[i] + ", ";
+            }
+        }
+        stringToPrint = stringToPrint.substring(0,stringToPrint.length()-2);
+        System.out.print(stringToPrint+"]\n");
+
+    }
+
 }

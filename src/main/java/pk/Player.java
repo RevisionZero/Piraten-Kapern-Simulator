@@ -1,15 +1,14 @@
 package pk;
 
 import java.util.*;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 public class Player {
 
-    public Player(boolean redOrNot, String playerName){
-        red = redOrNot;
+    public Player(String playerName){
         name = playerName;
     }
-
-    private boolean red;
 
     public String name;
 
@@ -21,28 +20,6 @@ public class Player {
     public int skulls = 0;
 
     public int wins = 0;
-
-    private void printRoll(Faces[] roll, boolean red){
-        if(red){
-            System.out.print("\u001B[31m"+"[");
-        }
-        else{
-            System.out.print("\u001B[33m"+"[");
-        }
-        final String ANSI_RESET = "\u001B[0m";
-        String stringToPrint = "";
-        for(int i = 0; i < 8; i++){
-            if(roll[i] == null){
-                stringToPrint += "SKULL, ";
-            }
-            else{
-                stringToPrint += roll[i] + ", ";
-            }
-        }
-        stringToPrint = stringToPrint.substring(0,stringToPrint.length()-2);
-        System.out.print(stringToPrint+"]\n"+ANSI_RESET);
-
-    }
 
     private void reRoll(int[] pickedIndices){
         System.out.print("\nRe-rolling the dice: ");
@@ -63,6 +40,8 @@ public class Player {
     }
     public void play(){
 
+        Logger logger = Logger.getLogger("Logger");
+
         int dag = 0; //dag = diamonds and gold
 
         boolean reRoll;
@@ -73,7 +52,7 @@ public class Player {
             dag = 0;
 
             System.out.println("Your roll is: ");
-            printRoll(roll,red);
+            Dice.printRoll(roll);
 
             //Check how many skulls
             for(int i = 0; i < 8; i++){
@@ -131,8 +110,6 @@ public class Player {
         turnScore(dag);
 
         System.out.println("Turn ended. Score: "+ totalScore +"\n");
-
-
     }
 
 
