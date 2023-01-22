@@ -39,7 +39,7 @@ Remark: **We are assuming here you are using a _real_ shell (e.g., anything but 
 | x   | F03v2 | Play 42 games during a simulation | D | 15/01/23 | 15/01/23 |
 | x   | F07 | Print the percentage of wins for each player after simulation end | D | 15/01/23 | 19/01/23 |
 |     | F08 | Better player strategy | P |
-|     | F09 | Score points based on 3,4,...,8 of-a-kind | P |
+|     | F09 | Score points based on 3,4,...,8 of-a-kind | S | 21/01/23 |
 |     | F10 | Select what strategy to use for each player as a command-line arg | P |
 | ... | ... | ... |
 
