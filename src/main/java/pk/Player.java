@@ -31,31 +31,18 @@ public class Player {
         }
     }
 
-    private void turnScore(int dag){
-        if(skulls < 3){
-            totalScore += 100*dag;
-        }
-        /*else{
-            roll = Dice.roll8(playerDice);
-        }*/
-        skulls = 0;
-    }
-
     public void play(){
 
-        Logger logger = LogManager.getLogger("mainLogger");
-
-
-        int dag = 0; //dag = diamonds and gold
+        Logger logger = LogManager.getLogger(this.getClass());
 
         boolean reRoll;
 
         roll = Dice.roll8(playerDice);
 
         do{
-            dag = 0;
 
-            System.out.println("Your roll is: ");
+            //System.out.println("Your roll is: ");
+            logger.debug(name+"'s roll is:");
             Dice.printRoll(roll);
 
             //Check how many skulls
@@ -90,16 +77,6 @@ public class Player {
 
             }
 
-            //Check how many of n dice are diamond/gold and add score
-
-
-            for(int i  = 0; i < 8; i++){
-                if(roll[i] == Faces.GOLD || roll[i] == Faces.DIAMOND){
-                    dag += 1;
-                }
-            }
-            System.out.println();
-
             //Re-roll without skulls and kept dice
 
             reRoll = rnd.nextBoolean();
@@ -110,7 +87,6 @@ public class Player {
 
         } while(reRoll);
 
-        //turnScore(dag);
         Score.calcScore(this);
 
         System.out.println("Turn ended. Score: "+ totalScore +"\n");
