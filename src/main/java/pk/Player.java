@@ -1,8 +1,10 @@
 package pk;
 
 import java.util.*;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
+//import java.util.logging.LogManager;
+//import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Player {
 
@@ -33,13 +35,16 @@ public class Player {
         if(skulls < 3){
             totalScore += 100*dag;
         }
-        else{
+        /*else{
             roll = Dice.roll8(playerDice);
-        }
+        }*/
         skulls = 0;
     }
 
     public void play(){
+
+        Logger logger = LogManager.getLogger("mainLogger");
+
 
         int dag = 0; //dag = diamonds and gold
 
@@ -55,9 +60,8 @@ public class Player {
 
             //Check how many skulls
             for(int i = 0; i < 8; i++){
-                if(roll[i] == Faces.SKULL && roll[i] != null){
+                if(roll[i] == Faces.SKULL){
                     skulls++;
-                    roll[i] = null;
                 }
             }
 
@@ -77,7 +81,7 @@ public class Player {
 
             for(int i = 0; i < diceToRoll; i++){
                 int pick = rnd.nextInt(8);
-                if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || roll[pick] == null){
+                if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || roll[pick] == Faces.SKULL){
                     i--;
                 }
                 else{
@@ -106,7 +110,8 @@ public class Player {
 
         } while(reRoll);
 
-        turnScore(dag);
+        //turnScore(dag);
+        Score.calcScore(this);
 
         System.out.println("Turn ended. Score: "+ totalScore +"\n");
     }

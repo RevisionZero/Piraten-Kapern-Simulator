@@ -58,6 +58,44 @@ public class Score {
         }
     }
 
+    public static void calcScore(Player player){
+        if(player.skulls < 3){
+            //MONKEY, PARROT, GOLD, DIAMOND, SABER, SKULL
+
+            int[] faceCounts = new int[5];
+
+            Arrays.stream(player.roll).forEach(roll->{
+                switch (roll) {
+                    case MONKEY -> faceCounts[0]++;
+                    case PARROT -> faceCounts[1]++;
+                    case GOLD -> {
+                        player.totalScore += 100;
+                        faceCounts[2]++;
+                    }
+                    case DIAMOND -> {
+                        player.totalScore += 100;
+                        faceCounts[3]++;
+                    }
+                    case SABER -> faceCounts[4]++;
+                    default -> {}
+                }
+            });
+
+            for (int index: faceCounts){
+                switch (index){
+                    case 3 -> player.totalScore += 100;
+                    case 4 -> player.totalScore += 200;
+                    case 5 -> player.totalScore += 500;
+                    case 6 -> player.totalScore += 1000;
+                    case 7 -> player.totalScore += 2000;
+                    case 8 -> player.totalScore += 4000;
+                }
+            }
+        }
+
+        player.skulls = 0;
+    }
+
 
 
 

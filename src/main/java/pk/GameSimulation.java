@@ -30,12 +30,6 @@ public class GameSimulation {
         }
     }
 
-    private static void resetSkulls(Player... players){
-        Arrays.stream(players).forEach(player -> {
-            player.skulls = 0;
-        });
-    }
-
     private static void win(int winner, Player... players){
         players[winner].wins++;
 
@@ -57,7 +51,7 @@ public class GameSimulation {
 
             scorer.resetScore(players);
 
-            resetSkulls(players);
+            Dice.resetSkulls(players);
 
             Arrays.stream(players).forEach(player -> {
                 turn(player,"'s first turn:");
