@@ -93,3 +93,17 @@ Jan-19,2023:
 -Further adjusted logic of classes worked on during jan18
 
 -Updated logbook
+
+Jan-21, 2023:
+
+-Added Strategies class
+
+Repositioned some methods, added win method to GameSimulation, removed colored output
+
+Jan-22, 2023:
+
+-Added combo strategy method to Strategies class
+
+-Added calcScore and faceCounts methods to Score class
+
+-Updated logbook
