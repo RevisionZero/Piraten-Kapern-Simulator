@@ -23,11 +23,16 @@ public class Player {
 
     public int wins = 0;
 
+    boolean reRoll;
+
     private void reRoll(int[] pickedIndices){
         System.out.print("\nRe-rolling the dice: ");
 
         for (int index: pickedIndices){
-            roll[index] = playerDice[index].roll();
+            if(index != 8){
+                roll[index] = playerDice[index].roll();
+            }
+            //roll[index] = playerDice[index].roll();
         }
     }
 
@@ -35,14 +40,13 @@ public class Player {
 
         Logger logger = LogManager.getLogger(this.getClass());
 
-        boolean reRoll;
-
         roll = Dice.roll8(playerDice);
 
         do{
 
             //System.out.println("Your roll is: ");
-            logger.debug(name+"'s roll is:");
+            //logger.debug(name+"'s roll is:");
+            logger.trace(name+"'s roll is:");
             Dice.printRoll(roll);
 
             //Check how many skulls
@@ -61,12 +65,12 @@ public class Player {
             //Keep n dice at random
             Random rnd = new Random();
 
-            int diceToRoll = rnd.nextInt(2,9-skulls);
+            //int diceToRoll = rnd.nextInt(2,9-skulls);
 
-            int[] pickedIndices = new int[diceToRoll];
-            Arrays.fill(pickedIndices, 9);
+            int[] pickedIndices = Strategies.combo(this);
+            //Arrays.fill(pickedIndices, 9);
 
-            for(int i = 0; i < diceToRoll; i++){
+           /* for(int i = 0; i < diceToRoll; i++){
                 int pick = rnd.nextInt(8);
                 if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || roll[pick] == Faces.SKULL){
                     i--;
@@ -75,11 +79,11 @@ public class Player {
                     pickedIndices[i] = pick;
                 }
 
-            }
+            }*/
 
             //Re-roll without skulls and kept dice
 
-            reRoll = rnd.nextBoolean();
+            //reRoll = rnd.nextBoolean();
 
             if(reRoll){
                 reRoll(pickedIndices);
@@ -87,7 +91,7 @@ public class Player {
 
         } while(reRoll);
 
-        Score.calcScore(this);
+        totalScore += Score.calcScore(this);
 
         System.out.println("Turn ended. Score: "+ totalScore +"\n");
     }
