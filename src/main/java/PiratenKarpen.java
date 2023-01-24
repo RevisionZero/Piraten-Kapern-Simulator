@@ -3,6 +3,7 @@ import pk.GameSimulation;
 import pk.Player;
 import pk.Strategies;
 
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.function.Function;
 
@@ -13,26 +14,25 @@ public class PiratenKarpen {
     public static void main(String[] args) {
         System.out.println("Welcome to Piraten Karpen Simulator!");
 
-        boolean trace = false;
+        boolean trace = System.getProperty("TRACING_ON") != null;
 
-        Function<Player, Integer[]> player1Strategy = Strategies.random;
+
+        Function<Player, Integer[]> player1Strategy = Strategies.combo;
         Function<Player, Integer[]> player2Strategy = Strategies.random;
 
         try{
-            trace = args[0].contains("T");
-
-            if(args[1].equals("combo")){
-                player1Strategy = Strategies.combo;
+            if(args[0].equals("random")){
+                player1Strategy = Strategies.random;
             }
-            if(args[2].equals("combo")){
+            if(args[1].equals("combo")){
                 player2Strategy = Strategies.combo;
             }
 
         }
         catch (IndexOutOfBoundsException e){
-            System.out.println("Please type in the strategies of each player and desired trace mode");
-            return;
+            System.out.println("No strategy chosen for players:\nPlayer 1 will use the combo strategy and Player 2 will use the random strategy.");
         }
+
 
 
 

@@ -15,8 +15,8 @@
     * `mvn package`
   * To run the packaged delivery:
     * `java -jar target/piraten-karpen-jar-with-dependencies.jar`
-  * To run the project with trace mode(with both players using combo strategy):
-    * `mvn -q exec:java -D exec.args="F combo combo"`
+  * To run the project with trace mode:
+    * `mvn -q exec:java -DTRACING_ON`
 
 Remark: **We are assuming here you are using a _real_ shell (e.g., anything but PowerShell on Windows)**
 
