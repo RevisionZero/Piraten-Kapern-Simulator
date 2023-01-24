@@ -55,26 +55,17 @@ public class Score {
         }
     }
 
-    public static Map<Faces, Integer> faceCounts(Player player){
+    public static int[] faceCounts(Player player){
 
-        Map<Faces, Integer> faceCounts = new HashMap<>();
-
-        //int[] faceCounts = new int[5];
-        Integer a = 1;
-
-        faceCounts.put(Faces.MONKEY, 0);
-        faceCounts.put(Faces.PARROT, 0);
-        faceCounts.put(Faces.GOLD, 0);
-        faceCounts.put(Faces.DIAMOND, 0);
-        faceCounts.put(Faces.SABER, 0);
+        int[] faceCounts = new int[5];
 
         Arrays.stream(player.roll).forEach(roll->{
             switch (roll) {
-                case MONKEY -> faceCounts.put(Faces.MONKEY, faceCounts.get(Faces.MONKEY) + 1);
-                case PARROT -> faceCounts.put(Faces.PARROT, faceCounts.get(Faces.PARROT) + 1);
-                case GOLD -> faceCounts.put(Faces.GOLD, faceCounts.get(Faces.GOLD) + 1);
-                case DIAMOND -> faceCounts.put(Faces.DIAMOND, faceCounts.get(Faces.DIAMOND) + 1);
-                case SABER -> faceCounts.put(Faces.SABER, faceCounts.get(Faces.SABER) + 1);
+                case MONKEY -> faceCounts[0]++;
+                case PARROT -> faceCounts[1]++;
+                case GOLD -> faceCounts[2]++;
+                case DIAMOND -> faceCounts[3]++;
+                case SABER -> faceCounts[4]++;
                 default -> {}
             }
         });
@@ -88,9 +79,7 @@ public class Score {
 
             int score = 0;
 
-            Map<Faces, Integer> facesMap = faceCounts(player);
-
-            int[] faceCounts = {facesMap.get(Faces.MONKEY), facesMap.get(Faces.PARROT), facesMap.get(Faces.GOLD), facesMap.get(Faces.DIAMOND), facesMap.get(Faces.SABER)};
+            int[] faceCounts = faceCounts(player);
 
             for (int index: faceCounts){
                 switch (index){

@@ -1,19 +1,35 @@
 package pk;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class GameSimulation {
 
+    public GameSimulation(boolean traceOption){
+        trace = traceOption;
+    }
+
+    static Logger logger = LogManager.getLogger("GameSimulation");
+
+    private static boolean trace = false;
 
 
     private static void turn(Player player, String text){
-        System.out.println(player.name+text);
+        if(trace){
+            logger.trace(player.name+text);
+        }
+        //System.out.println(player.name+text);
         player.play();
     }
 
     private static void finalTurns(Score scorer,Player... players){
-        System.out.println(players[scorer.initialWinner].name+" has reached 6000 points, the final turns begin!");
+        if(trace){
+            logger.trace(players[scorer.initialWinner].name+" has reached 6000 points, final turns.");
+        }
+        //System.out.println(players[scorer.initialWinner].name+" has reached 6000 points, the final turns begin!");
         for(int i = 0; i < players.length; i++){
             if(i != scorer.initialWinner){
                 turn(players[i],"'s final turn:");
@@ -33,9 +49,15 @@ public class GameSimulation {
     private static void win(int winner, Player... players){
         players[winner].wins++;
 
-        System.out.println(players[winner].name+" wins!");
+        if(trace){
+            logger.trace(players[winner].name+" wins");
+        }
+        //System.out.println(players[winner].name+" wins!");
         Arrays.stream(players).forEach(player -> {
-            System.out.println(player.name+"'s score: "+player.totalScore);
+            if(trace){
+                logger.trace(player.name+"'s score: "+player.totalScore);
+            }
+            //System.out.println(player.name+"'s score: "+player.totalScore);
         });
     }
 
@@ -47,7 +69,10 @@ public class GameSimulation {
 
             Score scorer = new Score(players);
 
-            System.out.println("------------------------------------Game " + (i+1) + "------------------------------------");
+            if(trace){
+                logger.trace("------------------------------------Game " + (i+1) + "------------------------------------");
+            }
+            //System.out.println("------------------------------------Game " + (i+1) + "------------------------------------");
 
             scorer.resetScore(players);
 
@@ -89,7 +114,10 @@ public class GameSimulation {
                 else if(players[scorer.finalRoundWinner].totalScore == players[scorer.initialWinner].totalScore){
                     i--;
 
-                    System.out.println("TIE! Replaying the game...");
+                    if(trace){
+                        logger.trace("Tie, replaying");
+                    }
+                    //System.out.println("TIE! Replaying the game...");
                 }
                 else {
                     winner = scorer.finalRoundWinner;
@@ -108,7 +136,10 @@ public class GameSimulation {
                 else{
                     i--;
 
-                    System.out.println("TIE! Replaying the game...");
+                    if(trace){
+                        logger.trace("Tie, replaying");
+                    }
+                    //System.out.println("TIE! Replaying the game...");
                 }
             }
 

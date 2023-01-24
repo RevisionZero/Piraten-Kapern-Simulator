@@ -19,15 +19,16 @@ public class Dice {
         return roll;
     }
 
-    public static void printRoll(Faces[] roll){
-        System.out.print("[");
-        String stringToPrint = "";
-        for(int i = 0; i < 8; i++){
-            stringToPrint += roll[i] + ", ";
+    public static String printRoll(Faces[] roll, boolean trace){
+        if(trace){
+            String stringToPrint = "[";
+            for(int i = 0; i < 8; i++){
+                stringToPrint += roll[i] + ", ";
+            }
+            stringToPrint = stringToPrint.substring(0,stringToPrint.length()-2);
+            return stringToPrint+"]\n";
         }
-        stringToPrint = stringToPrint.substring(0,stringToPrint.length()-2);
-        System.out.print(stringToPrint+"]\n");
-
+        return "";
     }
 
     public static void resetSkulls(Player... players){
