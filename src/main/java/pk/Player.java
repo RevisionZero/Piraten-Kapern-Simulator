@@ -33,9 +33,8 @@ public class Player {
 
     private void reRoll(Integer[] pickedIndices){
         if(trace){
-            logger.trace("\nRe-rolling the dice: ");
+            logger.trace("Re-rolling the dice: ");
         }
-        //System.out.print("\nRe-rolling the dice: ");
 
         for (int index: pickedIndices){
             if(index != 8){
@@ -53,11 +52,7 @@ public class Player {
             if(trace){
                 logger.trace(name+"'s roll is:");
             }
-            //System.out.println(name+"'s roll is:");
-            if(trace){
-                logger.trace(Dice.printRoll(roll,trace));
-            }
-            //Dice.printRoll(roll,trace);
+            logger.trace(Dice.printRoll(roll,trace));
 
             //Check how many skulls
             for(int i = 0; i < 8; i++){
@@ -69,9 +64,8 @@ public class Player {
             //If skulls are > 3, end the turn
             if(skulls >= 3){
                 if(trace){
-                    logger.trace("Rolled 3 dice, turn over");
+                    logger.trace("Rolled 3 skulls, turn over");
                 }
-                //System.out.println("You rolled 3 skulls, your turn is over!");
                 break;
             }
 
@@ -90,7 +84,6 @@ public class Player {
         if(trace){
             logger.trace("Turn ended. Score: "+ totalScore +"\n");
         }
-        //System.out.println("Turn ended. Score: "+ totalScore +"\n");
     }
 
 

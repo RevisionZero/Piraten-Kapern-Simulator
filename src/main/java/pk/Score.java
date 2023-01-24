@@ -33,9 +33,9 @@ public class Score {
         }
     }
 
-    public void addScore(int index, Player player){
+    /*public void addScore(int index, Player player){
         scores[index] = player.totalScore;
-    }
+    }*/
 
     ArrayList<Integer> finalRoundScores = new ArrayList<Integer>(4);
 

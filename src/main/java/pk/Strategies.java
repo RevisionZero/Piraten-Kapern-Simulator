@@ -8,17 +8,6 @@ public class Strategies {
 
     private static int reRollCount;
 
-    /*private static int factorial(int n){
-        for(int i = n-1; i > 0; i--){
-            n = n*i;
-        }
-        if(n == 0){
-            return 1;
-        }
-        return n;
-    }*/
-
-
     public static Function<Player, Integer[]> combo = (player) -> {
 
         reRollCount = 0;
@@ -56,17 +45,6 @@ public class Strategies {
                 }
             }
 
-            /*int nCk = (factorial(reRollCount)) / ( (factorial(3- player.skulls)) * (factorial(reRollCount-(3- player.skulls))) );
-
-            double lossProbability = Math.pow((1/6),(3 - player.skulls))*Math.pow((5/6),(reRollCount-(3-player.skulls)))*nCk;
-
-            if(lossProbability < 0.5){
-                player.reRoll = true;
-                return pickedIndices;
-            }
-
-            player.reRoll = false;
-            return pickedIndices;*/
 
             player.reRoll = true;
             return pickedIndices;
@@ -97,17 +75,6 @@ public class Strategies {
         return pickedIndices;
 
     };
-
-
-    public static void main(String[] args) {
-
-        /*Player player = new Player("Player 1",Strategies.random);
-
-        player.roll = new Faces[]{Faces.DIAMOND, Faces.MONKEY, Faces.SABER, Faces.SKULL, Faces.SABER, Faces.PARROT, Faces.PARROT, Faces.PARROT};
-
-        combo.apply(player);*/
-
-    }
 
 
 }
