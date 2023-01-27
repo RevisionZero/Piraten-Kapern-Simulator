@@ -33,7 +33,8 @@ public class Dice {
 
     public static void resetSkulls(Player... players){
         Arrays.stream(players).forEach(player -> {
-            player.skulls = 0;
+            //player.skulls = 0;
+            player.setSkulls(0);
         });
     }
 

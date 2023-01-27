@@ -36,6 +36,7 @@ public class PiratenKarpen {
 
 
 
+
         Player player1 = new Player("Player 1", player1Strategy,trace);
         Player player2 = new Player("Player 2",player2Strategy,trace);
 

@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class GameSimulation {
 
@@ -26,33 +27,40 @@ public class GameSimulation {
 
     private static void finalTurns(Score scorer,Player... players){
         if(trace){
-            logger.trace(players[scorer.initialWinner].name+" has reached 6000 points, final turns.");
+            logger.trace(players[scorer.getInitialWinner()].name+" has reached 6000 points, final turns.");
         }
         for(int i = 0; i < players.length; i++){
-            if(i != scorer.initialWinner){
+            if(i != scorer.getInitialWinner()){
                 turn(players[i],"'s final turn:");
-                scorer.finalRoundScores.add(players[i].totalScore);
+                //scorer.finalRoundScores.add(players[i].totalScore);
+                //scorer.finalRoundScores[i] = players[i].totalScore;
+                scorer.setFinalRoundScores(i,players[i].getTotalScore());
+            }
+            else{
+                //scorer.finalRoundScores[i] = 0;
+                scorer.setFinalRoundScores(i,0);
             }
         }
         scorer.getFinalRoundMax();
     }
 
-    private static void printWinPercentages(float numOfGames,Player... players){
+    /*private static void printWinPercentages(float numOfGames,Player... players){
         for(int i = 0; i < players.length; i++){
-            System.out.printf(players[i].name+"'s win percentage: %.2f", (((players[i].wins)/numOfGames) * 100));
+            System.out.printf(players[i].name+"'s win percentage: %.2f", (((players[i].getWins())/numOfGames) * 100));
             System.out.print("%\n");
         }
-    }
+    }*/
 
     private static void win(int winner, Player... players){
-        players[winner].wins++;
+        //players[winner].wins++;
+        players[winner].setWins(players[winner].getWins()+1);
 
         if(trace){
             logger.trace(players[winner].name+" wins");
         }
         Arrays.stream(players).forEach(player -> {
             if(trace){
-                logger.trace(player.name+"'s score: "+player.totalScore);
+                logger.trace(player.name+"'s score: "+player.getTotalScore());
             }
         });
     }
@@ -77,8 +85,6 @@ public class GameSimulation {
                 turn(player,"'s first turn:");
             });
 
-            scorer.addAllScores();
-
             boolean keepPlaying = true;
 
             do{
@@ -86,8 +92,8 @@ public class GameSimulation {
 
                     turn(players[j],"'s turn:");
 
-                    if(players[j].totalScore>=6000){
-                        scorer.initialWinner = j;
+                    if(players[j].getTotalScore()>=6000){
+                        scorer.setInitialWinner(j);
                         keepPlaying = false;
                         break;
                     }
@@ -99,14 +105,14 @@ public class GameSimulation {
 
             finalTurns(scorer,players);
 
-            if(scorer.finalRoundWinner != -1){
-                if(players[scorer.finalRoundWinner].totalScore < players[scorer.initialWinner].totalScore){
-                    winner = scorer.initialWinner;
+            if(scorer.getFinalRoundWinner() != -1){
+                if(players[scorer.getFinalRoundWinner()].getTotalScore() < players[scorer.getInitialWinner()].getTotalScore()){
+                    winner = scorer.getInitialWinner();
 
                     win(winner,players);
 
                 }
-                else if(players[scorer.finalRoundWinner].totalScore == players[scorer.initialWinner].totalScore){
+                else if(players[scorer.getFinalRoundWinner()].getTotalScore() == players[scorer.getInitialWinner()].getTotalScore()){
                     i--;
 
                     if(trace){
@@ -114,15 +120,15 @@ public class GameSimulation {
                     }
                 }
                 else {
-                    winner = scorer.finalRoundWinner;
+                    winner = scorer.getFinalRoundWinner();
 
                     win(winner,players);
 
                 }
             }
             else {
-                if(scorer.finalRoundMaxScore < players[scorer.initialWinner].totalScore){
-                    winner = scorer.initialWinner;
+                if(scorer.getFinalRoundMaxScore() < players[scorer.getInitialWinner()].getTotalScore()){
+                    winner = scorer.getInitialWinner();
 
                     win(winner,players);
 
@@ -139,6 +145,7 @@ public class GameSimulation {
         }
 
         System.out.println("Simulation is over. GG!");
-        printWinPercentages(numberOfGames,players);
+        //printWinPercentages(numberOfGames,players);
+        Score.printWinPercentages(numberOfGames,players);
     }
 }

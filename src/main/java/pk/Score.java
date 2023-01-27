@@ -4,55 +4,78 @@ import java.util.*;
 
 public class Score {
 
-    Player[] players;
+    private Player[] players;
 
-    public int initialWinner;
+    public int getInitialWinner() {
+        return initialWinner;
+    }
 
-    public int finalRoundWinner;
+    public void setInitialWinner(int initialWinner) {
+        this.initialWinner = initialWinner;
+    }
 
-    public int finalRoundMaxScore;
+    private int initialWinner;
 
-    int[] scores;
+    public int getFinalRoundWinner() {
+        return finalRoundWinner;
+    }
 
-    float[] winPercentages;
+    private int finalRoundWinner;
+
+    public int getFinalRoundMaxScore() {
+        return finalRoundMaxScore;
+    }
+
+    private int finalRoundMaxScore;
+
+    //private float[] winPercentages;
+
+    //ArrayList<Integer> finalRoundScores = new ArrayList<Integer>(4);
+
+
+    public void setFinalRoundScores(int index, Integer value) {
+        this.finalRoundScores[index] = value;
+    }
+
+    private Integer[] finalRoundScores;
     public Score(Player... inputPlayers){
         players = inputPlayers;
-        scores = new int[players.length];
-        winPercentages = new float[players.length];
+        //winPercentages = new float[players.length];
+        finalRoundScores = new Integer[players.length];
     }
 
     public void resetScore(Player... players){
         Arrays.stream(players).forEach(player -> {
-            player.totalScore = 0;
+            player.setTotalScore(0);
         });
     }
 
-    public void addAllScores(){
-        for(int i = 0; i < players.length; i++){
-            scores[i] = players[i].totalScore;
-        }
-    }
-
-    /*public void addScore(int index, Player player){
-        scores[index] = player.totalScore;
-    }*/
-
-    ArrayList<Integer> finalRoundScores = new ArrayList<Integer>(4);
-
     public void getFinalRoundMax(){
-        Integer max = finalRoundScores.stream().max(Integer::compare).get();
+        //Integer max = finalRoundScores.stream().max(Integer::compare).get();
 
-        int winnerIndex = finalRoundScores.indexOf(max);
+        Integer max = Arrays.asList(finalRoundScores).stream().max(Integer::compare).get();
 
-        finalRoundScores.remove(max);
+        //int winnerIndex = finalRoundScores.indexOf(max);
+        int winnerIndex = Arrays.asList(finalRoundScores).indexOf(max);
 
-        if(!finalRoundScores.contains(max)){
+        //finalRoundScores.remove(max);
+        finalRoundScores[winnerIndex] = 0;
+
+        /*if(finalRoundScores.contains(max)){
             finalRoundWinner = -1;
-            finalRoundMaxScore = max;
         }
         else{
             finalRoundWinner = winnerIndex;
         }
+        finalRoundMaxScore = max;*/
+
+        if(Arrays.asList(finalRoundScores).contains(max)){
+            finalRoundWinner = -1;
+        }
+        else{
+            finalRoundWinner = winnerIndex;
+        }
+        finalRoundMaxScore = max;
     }
 
     public static int[] faceCounts(Player player){
@@ -74,7 +97,7 @@ public class Score {
     }
 
     public static int calcScore(Player player){
-        if(player.skulls < 3){
+        if(player.getSkulls() < 3){
             //MONKEY, PARROT, GOLD, DIAMOND, SABER, SKULL
 
             int score = 0;
@@ -93,13 +116,22 @@ public class Score {
             }
 
             score += 100*(faceCounts[2]+faceCounts[3]);
-            player.skulls = 0;
+            //player.skulls = 0;
+            player.setSkulls(0);
 
             return score;
         }
-        player.skulls = 0;
+        //player.skulls = 0;
+        player.setSkulls(0);
         return 0;
 
+    }
+
+    public static void printWinPercentages(float numOfGames,Player... players){
+        for(int i = 0; i < players.length; i++){
+            System.out.printf(players[i].name+"'s win percentage: %.2f", (((players[i].getWins())/numOfGames) * 100));
+            System.out.print("%\n");
+        }
     }
 
 

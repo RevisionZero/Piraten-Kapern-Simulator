@@ -21,15 +21,43 @@ public class Player {
     Dice[] playerDice = {new Dice(), new Dice(), new Dice(),new Dice(),new Dice(),new Dice(),new Dice(),new Dice()};
     Faces[] roll = new Faces[8];
 
-    public int totalScore = 0;
+    public int getTotalScore() {
+        return totalScore;
+    }
 
-    public int skulls = 0;
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
 
-    public int wins = 0;
+    private int totalScore = 0;
 
-    boolean reRoll;
+    public int getSkulls() {
+        return skulls;
+    }
 
-    Logger logger = LogManager.getLogger(this.getClass());
+    public void setSkulls(int skulls) {
+        this.skulls = skulls;
+    }
+
+    private int skulls = 0;
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    private int wins = 0;
+
+    public void setReRoll(boolean reRoll) {
+        this.reRoll = reRoll;
+    }
+
+    private boolean reRoll;
+
+    static Logger logger = LogManager.getLogger("PLL");
 
     private void reRoll(Integer[] pickedIndices){
         if(trace){
@@ -51,8 +79,9 @@ public class Player {
 
             if(trace){
                 logger.trace(name+"'s roll is:");
+                logger.trace(Dice.printRoll(roll,trace));
             }
-            logger.trace(Dice.printRoll(roll,trace));
+            //logger.trace(Dice.printRoll(roll,trace));
 
             //Check how many skulls
             for(int i = 0; i < 8; i++){

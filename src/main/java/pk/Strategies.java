@@ -22,7 +22,8 @@ public class Strategies {
 
 
         if(Arrays.stream(faceCounts).noneMatch(n->(n==1)) && !Arrays.stream(faceCounts).noneMatch(n->(n==2))) {
-            player.reRoll = false;
+            //player.reRoll = false;
+            player.setReRoll(false);
             return pickedIndices;
         }
         else {
@@ -35,7 +36,8 @@ public class Strategies {
             }
 
             if (reRollCount < 2) {
-                player.reRoll = false;
+                //player.reRoll = false;
+                player.setReRoll(false);
                 return pickedIndices;
             }
 
@@ -46,7 +48,8 @@ public class Strategies {
             }
 
 
-            player.reRoll = true;
+            //player.reRoll = true;
+            player.setReRoll(true);
             return pickedIndices;
         }
     };
@@ -55,7 +58,7 @@ public class Strategies {
 
         Random rnd = new Random();
 
-        int diceToRoll = rnd.nextInt(2,9-player.skulls);
+        int diceToRoll = rnd.nextInt(2,9-player.getSkulls());
 
         Integer[] pickedIndices = new Integer[diceToRoll];
         Arrays.fill(pickedIndices, 9);
@@ -70,7 +73,8 @@ public class Strategies {
             }
         }
 
-        player.reRoll = rnd.nextBoolean();
+        //player.reRoll = rnd.nextBoolean();
+        player.setReRoll(rnd.nextBoolean());
 
         return pickedIndices;
 
