@@ -107,3 +107,15 @@ Jan-22, 2023:
 -Added calcScore and faceCounts methods to Score class
 
 -Updated logbook
+
+Jan-26, 2023:
+
+-Payed off some technical debt by removing unnecessary methods
+
+-Improved encapsulation by making class attributes private and creating getters/setters
+
+-Deployed Week 2 release
+
+Jan-27, 2023:
+
+-Updated logbook
