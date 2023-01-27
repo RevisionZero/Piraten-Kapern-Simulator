@@ -35,7 +35,7 @@ Remark: **We are assuming here you are using a _real_ shell (e.g., anything but 
 | x   | F02 | Roll eight dices  |  D | 13/01/23  | 13/01/23 |
 | x   | F03 | Select how many games as command-linne arg.  |  B(F03v2)  |   |
 | x   | F04 | end of game with three cranes | D | 13/01/23 | 15/01/23 |
-| x   | F05 | Player keeping random dice at their turn | B(F08) | 13/01/23 | 19/01/23 |
+| x   | F05 | Player keeping random dice at their turn | D | 13/01/23 | 19/01/23 |
 | x   | F06 | Score points: 3-of-a-kind | B(F06v2) | 13/01/23 | 
 | x   | F06v2 | Score points: (Number of gold coins and diamonds) x 100 | D | 13/01/23 | 19/01/23 |
 | x   | F03v2 | Play 42 games during a simulation | D | 15/01/23 | 15/01/23 |
@@ -43,6 +43,6 @@ Remark: **We are assuming here you are using a _real_ shell (e.g., anything but 
 |     | F08 | Better player strategy | D | 22/01/23 | 23/01/23
 |     | F09 | Score points based on 3,4,...,8 of-a-kind | D | 21/01/23 | 22/01/23 |
 |     | F10 | Select what strategy to use for each player as a command-line arg | D | 23/01/23 | 23/01/23 |
-| ... | F11 | Select whether to activate trace mode as a command-line arg | D | 22/01/23 | 23/01/23 |
+|     | F11 | Select whether to activate trace mode as a command-line arg | D | 22/01/23 | 23/01/23 |
 | ... | ... | ... |
 
