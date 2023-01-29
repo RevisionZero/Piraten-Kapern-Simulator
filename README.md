@@ -44,8 +44,8 @@ Remark: **We are assuming here you are using a _real_ shell (e.g., anything but 
 |     | F09 | Score points based on 3,4,...,8 of-a-kind | D | 21/01/23 | 22/01/23 |
 |     | F10 | Select what strategy to use for each player as a command-line arg | D | 23/01/23 | 23/01/23 |
 |     | F11 | Select whether to activate trace mode as a command-line arg | D | 22/01/23 | 23/01/23 |
-|     | F12 | Sea Battle Card | S | 28/01/23 |
-|     | F13 | Monkey Business Card | S | 28/01/23 |
-|     | F14 | Card Deck | S | 28/01/23 |
+|     | F12 | Sea Battle Card | D | 28/01/23 | 29/01/23 |
+|     | F13 | Monkey Business Card | D | 28/01/23 | 29/01/23 |
+|     | F14 | Card Deck | D | 28/01/23 | 29/01/23 |
 | ... | ... | ... |
 

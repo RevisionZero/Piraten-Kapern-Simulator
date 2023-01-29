@@ -5,28 +5,11 @@ Jan-12,2023:
 
 -Read the backlog description in README.md
 
-
--Questions:
-
-  Is this MVP really minimal?
-  
-  Is this MVP really viable?
-  
-  Can some features be simplified?
-  
- -Answers:
+-Answered the specified questions
  
-   -Yes, in the sense that it tries to describe only the essential features and not any fancy additions
-   
-   -No, this description takes away the player's ability to decide which dice to keep, which is one of the most important aspects of the game, and it takes away the player's ability to decide whether to re-roll or not, which is another critical feature. Additionally, there are other important missing features, such as cards. In short, this description is an automated re-rolling of the dice until the player is out.
-   
-   -No, the features/functions and their descriptions are already simple enough; further simplification would result in even the most basic of features not resembling how they work in the real world
-   
-   
- -Answered the specified questions
- 
- -Updated the DoD and the backlog to fit current business logic
+-Updated the DoD and the backlog to fit current business logic
 
+-Updated logbook
 
 Jan-13,2023:
 
@@ -61,14 +44,7 @@ Jan-15,2023:
 
 -Delivered features F07 and F03v2
 
--Questions:
-  a. Which part of your code do you consider to be technical debt?
-  b. Do you think your features were the right size? Too big? Too small?
-  c. Is it worth tracking the realization of each feature in the backlog? As a tag in the VCS?
-  d. Does it make sense to sacrifice quality in the long run? For short-term?
-  
-  Answers:
-    a.
+-Updated logbook
 
 Jan-16,2023:
 
@@ -77,6 +53,7 @@ Jan-16,2023:
 -Introduced GameSimulation class
 
 -Formatted stdout to look better
+
 
 Jan-17,2023
 
@@ -88,6 +65,8 @@ Jan-18,2023:
 
 -Adjusted player, score, and GameSimulation classes logic
 
+-Updated logbook
+
 Jan-19,2023:
 
 -Further adjusted logic of classes worked on during jan18
@@ -98,7 +77,9 @@ Jan-21, 2023:
 
 -Added Strategies class
 
-Repositioned some methods, added win method to GameSimulation, removed colored output
+-Repositioned some methods, added win method to GameSimulation, removed colored output
+
+-Updated logbook
 
 Jan-22, 2023:
 
@@ -116,6 +97,32 @@ Jan-26, 2023:
 
 -Deployed Week 2 release
 
-Jan-27, 2023:
+-Updated logbook
+
+Jan-28, 2023:
+
+-Started working on steps 5 and 6
+
+-Introduced abstract card class and Sea Battle card class and Monkey Business card class
+
+-Introduced card deck class, including draw method and preliminary card deck implementation
 
 -Updated logbook
+
+Jan-29, 2023:
+
+-Finished card deck implementation
+
+-Added nop card class
+
+-Implemented strategies corresponding to sea battle and monkey business cards
+
+-Implemented scoring for sea battle and monkey business cards
+
+-Fixed a skull counting bug
+
+-Released features F12-F14 and tagged them
+
+
+
+
