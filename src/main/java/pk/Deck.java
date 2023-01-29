@@ -37,20 +37,4 @@ public class Deck {
 
     }
 
-    public static void main(String[] args) {
-        Deck d = new Deck();
-
-        d.newDeck();
-
-        for(int i = 0; i < 1; i++){
-
-            Card draw = d.draw();
-
-            if(draw.isSea()){
-                System.out.println(draw.getName());
-            }
-        }
-
-    }
-
 }
