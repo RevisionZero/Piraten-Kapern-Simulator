@@ -69,6 +69,7 @@ public class Player {
                 roll[index] = playerDice[index].roll();
             }
         }
+        skulls = 0;
     }
 
     public void play(){
