@@ -1,6 +1,7 @@
 package pk;
 
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -72,9 +73,17 @@ public class Player {
         skulls = 0;
     }
 
-    public void play(){
+    public void play(Card draw){
 
         roll = Dice.roll8(playerDice);
+
+        if(trace){
+            logger.trace(draw.getName());
+            if(draw.isSea()){
+                SeaBattle card = (SeaBattle) draw;
+                logger.trace("Swords: "+card.getSwords()+", Bonus: "+card.getBonus());
+            }
+        }
 
         do{
 
@@ -101,7 +110,24 @@ public class Player {
 
             //Keep n dice at random
 
-            Integer[] pickedIndices = strategy.apply(this);
+            //Integer[] pickedIndices = strategy.apply(this);
+
+            Integer[] pickedIndices;
+
+            if(strategy == Strategies.combo){
+                if(draw.isSea()){
+                    pickedIndices = Strategies.seaBattle.apply(this,draw);
+                }
+                else if(draw.isMonkey()){
+                    pickedIndices = Strategies.monkeyBusiness.apply(this,draw);
+                }
+                else{
+                    pickedIndices = strategy.apply(this);
+                }
+            }
+            else{
+                pickedIndices = strategy.apply(this);
+            }
 
             if(reRoll){
                 reRoll(pickedIndices);
@@ -109,7 +135,7 @@ public class Player {
 
         } while(reRoll);
 
-        totalScore += Score.calcScore(this);
+        totalScore += Score.calcScore(this, draw);
 
         if(trace){
             logger.trace("Turn ended. Score: "+ totalScore +"\n");

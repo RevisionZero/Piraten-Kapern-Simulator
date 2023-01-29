@@ -2,6 +2,7 @@ package pk;
 
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class Strategies {
@@ -48,10 +49,101 @@ public class Strategies {
             }
 
 
+
             //player.reRoll = true;
             player.setReRoll(true);
             return pickedIndices;
         }
+    };
+
+    public static BiFunction<Player, Card, Integer[]> seaBattle = (player, draw) -> {
+
+        reRollCount = 0;
+
+        Integer[] pickedIndices = new Integer[8];
+
+        Arrays.fill(pickedIndices, 8);
+
+        ArrayList<Integer> reRollFaces = new ArrayList<>(3);
+
+        int[] faceCounts = Score.faceCounts(player);
+
+        SeaBattle drawnCard = (SeaBattle) draw;
+
+        if(faceCounts[4] >= drawnCard.getSwords()){
+            player.setReRoll(false);
+            return pickedIndices;
+        }
+        else{
+            for(int i = 0; i < faceCounts.length; i++){
+                if (i != Faces.SABER.ordinal()) {
+                    reRollCount += faceCounts[i];
+
+                    reRollFaces.add(i);
+                }
+            }
+
+            if (reRollCount < 2) {
+                //player.reRoll = false;
+                player.setReRoll(false);
+                return pickedIndices;
+            }
+
+            for (int i = 0; i < 8; i++) {
+                if (reRollFaces.contains(player.roll[i].ordinal())) {
+                    pickedIndices[i] = i;
+                }
+            }
+
+
+            player.setReRoll(true);
+            return pickedIndices;
+        }
+
+    };
+
+    public static BiFunction<Player, Card, Integer[]> monkeyBusiness = (player, draw) -> {
+
+        reRollCount = 0;
+
+        Integer[] pickedIndices = new Integer[8];
+
+        Arrays.fill(pickedIndices, 8);
+
+        ArrayList<Integer> reRollFaces = new ArrayList<>(3);
+
+        int[] faceCounts = Score.faceCounts(player);
+
+        if(faceCounts[2] == 0 && faceCounts[3] == 0 && faceCounts[4] == 0){
+            player.setReRoll(false);
+            return pickedIndices;
+        }
+        else{
+            for(int i = 0; i < faceCounts.length; i++){
+                if (i != Faces.MONKEY.ordinal() && i != Faces.PARROT.ordinal()) {
+                    reRollCount += faceCounts[i];
+
+                    reRollFaces.add(i);
+                }
+            }
+
+            if (reRollCount < 2) {
+                //player.reRoll = false;
+                player.setReRoll(false);
+                return pickedIndices;
+            }
+
+            for (int i = 0; i < 8; i++) {
+                if (reRollFaces.contains(player.roll[i].ordinal())) {
+                    pickedIndices[i] = i;
+                }
+            }
+
+            player.setReRoll(true);
+            return pickedIndices;
+
+        }
+
     };
 
     public static Function<Player, Integer[]> random = (player) -> {

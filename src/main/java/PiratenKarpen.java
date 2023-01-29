@@ -21,6 +21,7 @@ public class PiratenKarpen {
         Function<Player, Integer[]> player2Strategy = Strategies.random;
 
         try{
+
             if(args[0].equals("random")){
                 player1Strategy = Strategies.random;
             }

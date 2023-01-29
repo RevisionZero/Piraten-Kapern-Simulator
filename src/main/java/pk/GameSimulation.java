@@ -18,20 +18,24 @@ public class GameSimulation {
     private static boolean trace = false;
 
 
-    private static void turn(Player player, String text){
+    private static void turn(Player player, String text, Deck playDeck){
         if(trace){
             logger.trace(player.name+text);
         }
-        player.play();
+        //Card draw = playDeck.draw();
+        //Scanner scanner = new Scanner(System.in);
+        //System.out.println("TEST");
+        //scanner.nextLine();
+        player.play(playDeck.draw());
     }
 
-    private static void finalTurns(Score scorer,Player... players){
+    private static void finalTurns(Score scorer, Deck playDeck,Player... players){
         if(trace){
             logger.trace(players[scorer.getInitialWinner()].name+" has reached 6000 points, final turns.");
         }
         for(int i = 0; i < players.length; i++){
             if(i != scorer.getInitialWinner()){
-                turn(players[i],"'s final turn:");
+                turn(players[i],"'s final turn:", playDeck);
                 //scorer.finalRoundScores.add(players[i].totalScore);
                 //scorer.finalRoundScores[i] = players[i].totalScore;
                 scorer.setFinalRoundScores(i,players[i].getTotalScore());
@@ -44,12 +48,6 @@ public class GameSimulation {
         scorer.getFinalRoundMax();
     }
 
-    /*private static void printWinPercentages(float numOfGames,Player... players){
-        for(int i = 0; i < players.length; i++){
-            System.out.printf(players[i].name+"'s win percentage: %.2f", (((players[i].getWins())/numOfGames) * 100));
-            System.out.print("%\n");
-        }
-    }*/
 
     private static void win(int winner, Player... players){
         //players[winner].wins++;
@@ -69,6 +67,10 @@ public class GameSimulation {
 
         for(int i = 0; i < numberOfGames; i++){
 
+            Deck playDeck = new Deck();
+
+            playDeck.newDeck();
+
             int winner = 6;
 
             Score scorer = new Score(players);
@@ -82,7 +84,7 @@ public class GameSimulation {
             Dice.resetSkulls(players);
 
             Arrays.stream(players).forEach(player -> {
-                turn(player,"'s first turn:");
+                turn(player,"'s first turn:", playDeck);
             });
 
             boolean keepPlaying = true;
@@ -90,7 +92,7 @@ public class GameSimulation {
             do{
                 for(int j = 0; j < players.length; j++){
 
-                    turn(players[j],"'s turn:");
+                    turn(players[j],"'s turn:", playDeck);
 
                     if(players[j].getTotalScore()>=6000){
                         scorer.setInitialWinner(j);
@@ -103,7 +105,7 @@ public class GameSimulation {
             }
             while (keepPlaying);
 
-            finalTurns(scorer,players);
+            finalTurns(scorer,playDeck,players);
 
             if(scorer.getFinalRoundWinner() != -1){
                 if(players[scorer.getFinalRoundWinner()].getTotalScore() < players[scorer.getInitialWinner()].getTotalScore()){

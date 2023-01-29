@@ -96,13 +96,19 @@ public class Score {
         return faceCounts;
     }
 
-    public static int calcScore(Player player){
+    public static int calcScore(Player player, Card draw){
         if(player.getSkulls() < 3){
             //MONKEY, PARROT, GOLD, DIAMOND, SABER, SKULL
 
             int score = 0;
 
             int[] faceCounts = faceCounts(player);
+
+            if(draw.isMonkey()){
+                int monkeyCount = faceCounts[0]; int parrotCount = faceCounts[1];
+                faceCounts[0] = monkeyCount + parrotCount;
+                faceCounts[1] = 0;
+            }
 
             for (int index: faceCounts){
                 switch (index){
@@ -116,6 +122,15 @@ public class Score {
             }
 
             score += 100*(faceCounts[2]+faceCounts[3]);
+            if(draw.isSea()){
+                SeaBattle card = (SeaBattle) draw;
+                if(faceCounts[4] >= card.getSwords()){
+                    score += card.getBonus();
+                }
+                else{
+                    return 0;
+                }
+            }
             //player.skulls = 0;
             player.setSkulls(0);
 
