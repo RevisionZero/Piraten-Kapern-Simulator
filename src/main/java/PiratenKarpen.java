@@ -12,7 +12,7 @@ public class PiratenKarpen {
 
 
     public static void main(String[] args) {
-        //Important: A lot of the comments mention "other players" or something similar, the implementation of this simulator supports up to 5 people, so that's what's meant by other players
+        //Important Remark: A lot of the comments talk as if there are more than 2 players, the implementation of this simulator supports up to 5 people, so that's what's meant by other players
         System.out.println("Welcome to Piraten Karpen Simulator!");
 
         boolean trace = System.getProperty("TRACING_ON") != null;  //Enabling tracing or not

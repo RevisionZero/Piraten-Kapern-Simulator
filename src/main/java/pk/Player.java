@@ -96,7 +96,6 @@ public class Player {
                 logger.trace(name+"'s roll is:");
                 logger.trace(Dice.printRoll(roll,trace));  //Tracing
             }
-            //logger.trace(Dice.printRoll(roll,trace));
 
             //Check how many skulls
             for(int i = 0; i < 8; i++){
@@ -112,10 +111,6 @@ public class Player {
                 }
                 break;  //Breaking the loop immediately so strategies aren't applied
             }
-
-            //Keep n dice at random
-
-            //Integer[] pickedIndices = strategy.apply(this);
 
             Integer[] pickedIndices;  //Creating the picked indices array to be used in the reroll method
 

@@ -35,7 +35,6 @@ public class Dice {
 
     public static void resetSkulls(Player... players){ //Resetting the skulls for all players
         Arrays.stream(players).forEach(player -> { //For each player
-            //player.skulls = 0;
             player.setSkulls(0); //Set the skulls to 0
         });
     }

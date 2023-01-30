@@ -28,11 +28,6 @@ public class Score {
 
     private int finalRoundMaxScore;  //The highest score achieved in the final rounds 1 player reaches 6000 points
 
-    //private float[] winPercentages;
-
-    //ArrayList<Integer> finalRoundScores = new ArrayList<Integer>(4);
-
-
     public void setFinalRoundScores(int index, Integer value) {
         this.finalRoundScores[index] = value;
     }
@@ -40,7 +35,6 @@ public class Score {
     private Integer[] finalRoundScores;  //Array which stores the scores of all the players who play in the final rounds, the player who won initially has their score as 0 in this array to not conflict with other scores
     public Score(Player... inputPlayers){ //Constructor, which takes in the players playing as a parameter
         players = inputPlayers;
-        //winPercentages = new float[players.length];
         finalRoundScores = new Integer[players.length];  //Initializing the final round scores array to be as long as the number of players, so each player has a spot, final round scores are implemented as an array to ensure indices always match to other arrays
     }
 
@@ -51,23 +45,12 @@ public class Score {
     }
 
     public void getFinalRoundMax(){  //Method that gets what is the highest score in the final round
-        //Integer max = finalRoundScores.stream().max(Integer::compare).get();
 
         Integer max = Arrays.asList(finalRoundScores).stream().max(Integer::compare).get();  //Using a list representation of final round scores to get access to the ability to determine the maximum value, returns the highest value in the array
 
-        //int winnerIndex = finalRoundScores.indexOf(max);
         int winnerIndex = Arrays.asList(finalRoundScores).indexOf(max);  //Using a list representation, winnerIndex is the first occurrence of the highest score in the final round scores array
 
-        //finalRoundScores.remove(max);
         finalRoundScores[winnerIndex] = 0;  //Setting the score at the index of the first occurrence of the highest score to 0, so that other occurrence of the highest score may be found
-
-        /*if(finalRoundScores.contains(max)){
-            finalRoundWinner = -1;
-        }
-        else{
-            finalRoundWinner = winnerIndex;
-        }
-        finalRoundMaxScore = max;*/
 
         if(Arrays.asList(finalRoundScores).contains(max)){  //Checking if there's another player with the same highest score
             finalRoundWinner = -1;  //If that's the case, the final round winner index is set to -1, see how the GameSimulation class uses this
@@ -81,17 +64,6 @@ public class Score {
     public static int[] faceCounts(Player player){  //Method to count how many of each face are in the player's current roll
 
         int[] faceCounts = new int[5];  //Initializng the array to store the counts to 5, skulls will not be counted, and each index corresponds to the ordinal of the Faces enum(so the first one, monkey, is 0)
-
-        /*Arrays.stream(player.roll).forEach(roll->{
-            switch (roll) {
-                case MONKEY -> faceCounts[0]++;
-                case PARROT -> faceCounts[1]++;
-                case GOLD -> faceCounts[2]++;
-                case DIAMOND -> faceCounts[3]++;
-                case SABER -> faceCounts[4]++;
-                default -> {}
-            }
-        });*/
 
         Arrays.stream(player.getRoll()).forEach(roll->{  //For each element in the roll
             switch (roll) {  //Switch case checking the value of the roll
@@ -109,7 +81,6 @@ public class Score {
 
     public static int calcScore(Player player, Card draw){  //Method to calculate score acquired at turn end, taking in the player in question and their drawn card as parameters
         if(player.getSkulls() < 3){  //If the player has more than 3 skulls, no score will be added
-            //MONKEY, PARROT, GOLD, DIAMOND, SABER, SKULL
 
             int score = 0;  //Creating the score int, representing the score to be added to the player's total score
 
@@ -142,12 +113,10 @@ public class Score {
                     return 0;  //If not, the turn's score is nullified and nothing is added: 0 is returned
                 }
             }
-            //player.skulls = 0;
             player.setSkulls(0);  //The player's skulls are set to 0 in order to ensure that skulls do not accumulate
 
             return score;  //The score gained is returned
         }
-        //player.skulls = 0;
         player.setSkulls(0);  //The player's skulls are set to 0 in order to ensure that skulls do not accumulate
         return 0;  //If the player got 3 skulls, no score is gained: 0 is returned
 

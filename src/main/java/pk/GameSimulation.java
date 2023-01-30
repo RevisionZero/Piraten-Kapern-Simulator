@@ -22,10 +22,6 @@ public class GameSimulation {
         if(trace){
             logger.trace(player.name+text);  //Tracing
         }
-        //Card draw = playDeck.draw();
-        //Scanner scanner = new Scanner(System.in);
-        //System.out.println("TEST");
-        //scanner.nextLine();
         player.play(playDeck.draw());  //Calling play with a card drawn from the deck passed in as a parameter
     }
 
@@ -36,12 +32,10 @@ public class GameSimulation {
         for(int i = 0; i < players.length; i++){ //Iterating over all the players and checking that they aren't the initial winner
             if(i != scorer.getInitialWinner()){  //The initial winner's index is stored in the scorer object
                 turn(players[i],"'s final turn:", playDeck);  //Letting said player play
-                //scorer.finalRoundScores.add(players[i].totalScore);
-                //scorer.finalRoundScores[i] = players[i].totalScore;
+
                 scorer.setFinalRoundScores(i,players[i].getTotalScore());  //Setting the scores obtained in the final round to the final round scores array while corresponding indices(player 1 has index 0 both in the players array and the final scores array)
             }
             else{
-                //scorer.finalRoundScores[i] = 0;
                 scorer.setFinalRoundScores(i,0);  //If the player is the initial winner, their score in the final round scores array is set to 0 to ensure they don't get compared to the other players
             }
         }
@@ -50,7 +44,6 @@ public class GameSimulation {
 
 
     private static void win(int winner, Player... players){  //Function to add wins to the winner player, display the winner, and display the final scores of each player
-        //players[winner].wins++;
         players[winner].setWins(players[winner].getWins()+1);  //Iterating the winner's wins by accessing their index in the players array and using the wins getter and setter
 
         if(trace){
@@ -147,7 +140,6 @@ public class GameSimulation {
         }
 
         System.out.println("Simulation is over. GG!");
-        //printWinPercentages(numberOfGames,players);
         Score.printWinPercentages(numberOfGames,players);  //Calling a method in score to calculate and display the win percentages of each player after the simulation is over
     }
 }
