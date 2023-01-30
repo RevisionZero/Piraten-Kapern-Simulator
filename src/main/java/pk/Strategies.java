@@ -42,8 +42,14 @@ public class Strategies {
                 return pickedIndices;
             }
 
-            for (int i = 0; i < 8; i++) {
+            /*for (int i = 0; i < 8; i++) {
                 if (reRollFaces.contains(player.roll[i].ordinal())) {
+                    pickedIndices[i] = i;
+                }
+            }*/
+
+            for (int i = 0; i < 8; i++) {
+                if (reRollFaces.contains(player.getRoll()[i].ordinal())) {
                     pickedIndices[i] = i;
                 }
             }
@@ -89,8 +95,14 @@ public class Strategies {
                 return pickedIndices;
             }
 
-            for (int i = 0; i < 8; i++) {
+            /*for (int i = 0; i < 8; i++) {
                 if (reRollFaces.contains(player.roll[i].ordinal())) {
+                    pickedIndices[i] = i;
+                }
+            }*/
+
+            for (int i = 0; i < 8; i++) {
+                if (reRollFaces.contains(player.getRoll()[i].ordinal())) {
                     pickedIndices[i] = i;
                 }
             }
@@ -133,8 +145,14 @@ public class Strategies {
                 return pickedIndices;
             }
 
-            for (int i = 0; i < 8; i++) {
+            /*for (int i = 0; i < 8; i++) {
                 if (reRollFaces.contains(player.roll[i].ordinal())) {
+                    pickedIndices[i] = i;
+                }
+            }*/
+
+            for (int i = 0; i < 8; i++) {
+                if (reRollFaces.contains(player.getRoll()[i].ordinal())) {
                     pickedIndices[i] = i;
                 }
             }
@@ -155,9 +173,19 @@ public class Strategies {
         Integer[] pickedIndices = new Integer[diceToRoll];
         Arrays.fill(pickedIndices, 9);
 
-        for(int i = 0; i < diceToRoll; i++){
+        /*for(int i = 0; i < diceToRoll; i++){
             int pick = rnd.nextInt(8);
             if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || player.roll[pick] == Faces.SKULL){
+                i--;
+            }
+            else{
+                pickedIndices[i] = pick;
+            }
+        }*/
+
+        for(int i = 0; i < diceToRoll; i++){
+            int pick = rnd.nextInt(8);
+            if(Arrays.stream(pickedIndices).anyMatch(n->(n==pick)) || player.getRoll()[pick] == Faces.SKULL){
                 i--;
             }
             else{

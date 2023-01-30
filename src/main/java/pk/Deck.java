@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 public class Deck {
-
+//Implementing the card deck
     private Stack<Card> cardDeck = new Stack<>();  //The actual stack of cards
 
     public Card draw(){ //Draw a card
@@ -18,23 +18,24 @@ public class Deck {
 
         this.cardDeck.clear();  //Clearing the previous deck
 
-        this.cardDeck.push(new SeaBattle(300,2));
+        this.cardDeck.push(new SeaBattle(300,2)); //Adding the sea battle cards
         this.cardDeck.push(new SeaBattle(300,2));
         this.cardDeck.push(new SeaBattle(500,3));
         this.cardDeck.push(new SeaBattle(500,3));
         this.cardDeck.push(new SeaBattle(1000,4));
         this.cardDeck.push(new SeaBattle(1000,4));
 
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 4; i++){  //Adding the monkey business cards
             this.cardDeck.push(new MonkeyBusiness());
         }
-        for(int i = 0; i < 25; i++){
+        for(int i = 0; i < 25; i++){  //Adding the nop cards
             this.cardDeck.push(new NOP());
         }
 
-        Collections.shuffle(this.cardDeck);
+        Collections.shuffle(this.cardDeck);  //Shuffling the deck
 
 
     }
+
 
 }
